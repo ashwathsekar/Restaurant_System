@@ -1,4 +1,4 @@
-# restaurant-management-system-MERN-
+# Restaurant Management System (MERN)
 This project is a comprehensive Restaurant Management System built using the MERN stack (MongoDB, Express, React, Node.js). It includes the following key features:
 
 Features: 

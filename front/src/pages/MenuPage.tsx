@@ -3,10 +3,11 @@ import '../css/menu.css'
 import NavbarComponent from '../components/NavbarComponent'
 import axios from 'axios';
 import MenuItemComponent from '../components/MenuItemComponent';
-
+import { ReactReduxContext, useSelector } from 'react-redux';
 
 export default function MenuPage() {
-
+    const [total, setTotal] = useState(0)
+    const cartItems = useSelector((state:any)=> state.cart)
     const [menu, setMenu] = useState([]);
 
     console.log("menu", menu);
@@ -23,6 +24,17 @@ export default function MenuPage() {
     
         }
       }
+
+      const updateTotal = () =>{
+        let total = 0;
+        cartItems.forEach((item:any) => {
+            total += item.price;
+        });
+        setTotal(total)
+      }
+      useEffect(()=>{
+        updateTotal()
+      }, [cartItems])
     
       useEffect(()=>{
         fetchMenu()
@@ -42,7 +54,7 @@ export default function MenuPage() {
             {menu.map((item: any) => (    // default we get all trades since "" string is common substring to all title string.. and inclues checnk if a sting is a substring of another string
               <MenuItemComponent key={item._id} item={item}/>
           ))}
-            <div className="menu-items">
+            {/* <div className="menu-items">
                 <div className="item-card">
                     <div className="item-details">
                         <h3 className="item-name">Burger</h3>
@@ -55,15 +67,17 @@ export default function MenuPage() {
                         <button className="btn-plus">+</button>
                     </div>
                 </div>
-                {/* <!-- Add more item cards here --> */}
-            </div>
+            </div> */}
             <div className="cart">
                 <h3>Shopping Cart</h3>
                 <ul className="cart-items">
+                  {cartItems.map((item:any)=>{
+                      const count = cartItems.filter((itemInCart:any) => itemInCart === item).length;
+                      return <li>{item.name} x{count}</li>
+                  }) }
                     {/* <!-- Cart items will be added dynamically --> */}
-                    <li>Burger x2</li>
                 </ul>
-                <p>Total Price: $6.00</p>
+                <p>Total Price: ${total}</p>
                 <button className="btn-checkout">Checkout</button>
             </div>
         </div>

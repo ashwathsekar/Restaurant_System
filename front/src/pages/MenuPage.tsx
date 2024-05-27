@@ -25,6 +25,13 @@ export default function MenuPage() {
         }
       }
 
+      const handleCheckout = () =>{
+        if (total<=0) {
+          alert("Cart Empty! Please add items.")
+          return
+        }
+        alert("Checkout successful")
+      }
       const updateTotal = () =>{
         let total = 0;
         cartItems.forEach((item:any) => {
@@ -69,16 +76,20 @@ export default function MenuPage() {
                 </div>
             </div> */}
             <div className="cart">
-                <h3>Shopping Cart</h3>
-                <ul className="cart-items">
-                  {cartItems.map((item:any)=>{
-                      const count = cartItems.filter((itemInCart:any) => itemInCart === item).length;
-                      return <li>{item.name} x{count}</li>
-                  }) }
-                    {/* <!-- Cart items will be added dynamically --> */}
-                </ul>
-                <p>Total Price: ${total}</p>
-                <button className="btn-checkout">Checkout</button>
+            <h3>Shopping Cart</h3>
+              <ul className="cart-items">
+                {cartItems.reduce((uniqueItems: any[], item: any) => {
+                  if (!uniqueItems.some(uniqueItem => uniqueItem.name === item.name)) {
+                    uniqueItems.push(item);
+                  }
+                  return uniqueItems;
+                }, []).map((item: any) => {
+                  const count = cartItems.filter((itemInCart: any) => itemInCart.name === item.name).length;
+                  return <li key={item.name}>{item.name} x{count}</li>
+                })}
+              </ul>
+                <p>Total Price: ${total.toFixed(2)}</p>
+                <button className="btn-checkout" onClick={handleCheckout}>Checkout</button>
             </div>
         </div>
 

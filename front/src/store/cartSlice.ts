@@ -10,7 +10,11 @@ const cartSlice = createSlice({
         }
         ,
         remove(state, action){
-            return state.filter((item: any) => item.name !== action.payload.name); // get data in payload and update state
+            const index = state.findIndex((item: any) => item.name === action.payload.name);
+            if (index !== -1) {
+                state.splice(index, 1);
+            }
+            return state;
         }
 
     }

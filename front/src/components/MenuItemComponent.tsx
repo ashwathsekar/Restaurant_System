@@ -20,7 +20,7 @@ export default function MenuItemComponent(props: any) {
     const decrement = () => {
         if (value > 0) {
         setValue(value - 1)
-        
+        removeFromCart();
         }
     }
     

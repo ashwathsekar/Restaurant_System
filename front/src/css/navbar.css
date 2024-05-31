@@ -27,6 +27,7 @@ li {
   width: 100%;
   box-sizing: border-box;
   position: fixed;
+
   /* Optionally make navbar fixed at the top */
   top: 0;
   /* Align to the top */

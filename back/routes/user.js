@@ -9,6 +9,8 @@ userRouter.post('/validate', validateUser)
 userRouter.post('/signup', signUp)
 userRouter.get('/get-menu', getMenu)
 userRouter.post('/get-orders', getOrders)
+// userRouter.post('/get-my-orders', getMyOrders)
+// 
 
 
 // userRouter.post('/change-password', changePassword) 

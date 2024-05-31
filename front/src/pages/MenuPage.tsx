@@ -4,11 +4,22 @@ import NavbarComponent from '../components/NavbarComponent'
 import axios from 'axios';
 import MenuItemComponent from '../components/MenuItemComponent';
 import { ReactReduxContext, useSelector } from 'react-redux';
+import Confetti from 'react-confetti'
+
+interface Order{
+  items: string[],
+  total: number,
+  status: string
+}
 
 export default function MenuPage() {
+
+
     const [total, setTotal] = useState(0)
     const cartItems = useSelector((state:any)=> state.cart)
     const [menu, setMenu] = useState([]);
+    const [order, setOrder] = useState<Order>({ items: [], total: 0, status: "" })
+    const [cart, setCart] = useState([])
 
     console.log("menu", menu);
     const fetchMenu = async () =>{
@@ -30,6 +41,8 @@ export default function MenuPage() {
           alert("Cart Empty! Please add items.")
           return
         }
+        setOrder({items:cartItems, total: total, status:"Pending"});
+        console.log(order)
         alert("Checkout successful")
       }
       const updateTotal = () =>{
@@ -57,24 +70,13 @@ export default function MenuPage() {
     
     <div className="container-menu">
             <h2>Menu</h2>
-
-            {menu.map((item: any) => (    // default we get all trades since "" string is common substring to all title string.. and inclues checnk if a sting is a substring of another string
-              <MenuItemComponent key={item._id} item={item}/>
-          ))}
-            {/* <div className="menu-items">
-                <div className="item-card">
-                    <div className="item-details">
-                        <h3 className="item-name">Burger</h3>
-                        <p className="item-description">A delicious burger with all the fixings.</p>
-                        <p className="item-description"> Price: $3.00</p>
-                    </div>
-                    <div className="item-actions">
-                        <button className="btn-minus">-</button>
-                        <span className="quantity">0</span>
-                        <button className="btn-plus">+</button>
-                    </div>
-                </div>
-            </div> */}
+            <div className= "menu-items">
+              {menu.map((item: any) => (    // default we get all trades since "" string is common substring to all title string.. and inclues checnk if a sting is a substring of another string
+                <MenuItemComponent key={item._id} item={item} />
+            ))}
+            </div>
+           
+    </div>
             <div className="cart">
             <h3>Shopping Cart</h3>
               <ul className="cart-items">
@@ -90,8 +92,8 @@ export default function MenuPage() {
               </ul>
                 <p>Total Price: ${total.toFixed(2)}</p>
                 <button className="btn-checkout" onClick={handleCheckout}>Checkout</button>
+
             </div>
-        </div>
 
     </>
   )

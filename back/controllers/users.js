@@ -164,6 +164,34 @@ export const getOrders = async (req, res, next) =>{
     try {
 
         const {user_id} = req.body;
+        console.log("ID: "+user_id)
+        const orders = await Order.find({ordered_by: user_id });
+        console.log(orders);
+        
+        if (!orders) {
+            return res.status(404).json({ 
+                message: "No order found!"
+            });
+        }
+
+        res.status(200).json({
+            message: "orders found sucessfully.",
+            orders: orders
+        });
+    
+    }
+    catch (error) {
+        res.status(500).json({
+            error: "Error finding menu in db."
+        });
+    }
+}
+
+
+export const getMyOrders = async (req, res, next) =>{
+    try {
+
+        const {user_id} = req.body;
 
         const orders = await Order.find({ordered_by: user_id });
 

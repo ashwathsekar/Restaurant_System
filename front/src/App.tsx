@@ -31,7 +31,6 @@ function App() {
 
   const { user } = useAuth(); 
 
-  console.log(user)
 
   if(!user) { // if user
     return (

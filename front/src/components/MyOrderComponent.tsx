@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/myorder.css'
+import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext';
 
 export default function MyOrderComponent() {
+    
   return (
     
-    <div className="container-myorder">
-        <div className="card">
-            <h2>My Order</h2>
+   
             <div className="order-details">
                 <div className="item">
                     <span className="name">Burger</span>
@@ -27,7 +28,6 @@ export default function MyOrderComponent() {
                     <span className="order-status">In Progress</span>
                 </div>
             </div>
-        </div>
-    </div>
+
   )
 }

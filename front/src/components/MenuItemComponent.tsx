@@ -46,13 +46,7 @@ export default function MenuItemComponent(props: any) {
             <button className="btn-plus" onClick={increment}>+</button>
           </div>
         </div>
-        {/* <!-- Add more item cards here --> */}
-
-      {/* <div className="item-details">
-        <h3 className="item-name">{props.name}</h3>
-        <p className="item-description">{props.description}</p>
-        <p className="item-description"> Price: ${props.price}</p>
-    </div> */}
+ 
     </>
   );
 }

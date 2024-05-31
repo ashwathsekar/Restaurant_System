@@ -11,9 +11,10 @@ import SignupPage from './pages/SignupPage';
 import MyOrderPage from './pages/MyOrderPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { set } from './store/userSlice';
-import { Route, Routes,  } from 'react-router-dom';
+import { Navigate, Route, Routes,  } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import MissingPage from './pages/MissingPage';
+import { emplace } from '@reduxjs/toolkit/dist/utils';
 
 
 function App() {
@@ -31,36 +32,22 @@ function App() {
 
   const { user } = useAuth(); 
 
+  console.log(user)
 
-  if(!user) { // if user
+  if (!user) {
     return (
-     <Routes>
-      <Route path = '/' >
-          {/* <Route index element={<HomePage />} /> */}
+      <Routes>
+        <Route path = '/' >
           <Route index element={<LoginPage />} />
-          {/* <Route path = '/register' element={<SignupPage />} /> */}
         </Route>
-        <Route path="/user/">
-          <Route index element={ user?<HomePage /> : <LoginPage />} />
-          <Route path="/user/profile" element={<ProfilePage />} />
-          <Route path="/user/profile" element={<ProfilePage />} />
-          {/* <Route path = "/user/trades" element= {user? <Trades /> : <LoginPage />} />
-          <Route path = "/user/create-trade" element= {user? <CreateTrade /> :<LoginPage />} />
-          <Route path = "/user/change-password" element= {user?<ChangePassword /> : <LoginPage />} />
-          <Route path = "/user/specific-trade" element= {user?<SpecificTrade /> : <LoginPage />} />
-          <Route path = "/user/send-offer" element= {user?<SendOffer /> : <LoginPage />} /> */}
-
-        </Route>
-
         <Route path="*" element={<MissingPage />} />
-     </Routes>
-    )
-  } 
-  else {
+      </Routes>
+      )
+  }
+
     return (
      <Routes>
       <Route path = '/' >
-          {/* <Route index element={<HomePage />} /> */}
           <Route index element={<LoginPage />} />
           <Route path = '/signup' element={<SignupPage />} />
         </Route>
@@ -69,19 +56,12 @@ function App() {
           <Route path="/user/home" element={user?<HomePage />:<LoginPage/>} />
           <Route path="/user/menu" element={user?<MenuPage />:<LoginPage/>} />
           <Route path="/user/orders" element={user?<OrdersPage />:<LoginPage/>} />
-  
-          {/* <Route path = "/user/trades" element= {user? <Trades /> : <LoginPage />} />
-          <Route path = "/user/create-trade" element= {user? <CreateTrade /> :<LoginPage />} />
-          <Route path = "/user/change-password" element= {user?<ChangePassword /> : <LoginPage />} />
-          <Route path = "/user/specific-trade" element= {user?<SpecificTrade /> : <LoginPage />} />
-          <Route path = "/user/send-offer" element= {user?<SendOffer /> : <LoginPage />} /> */}
-
         </Route>
 
         <Route path="*" element={<MissingPage />} />
      </Routes>
     )
-  }
+  
 
 
 

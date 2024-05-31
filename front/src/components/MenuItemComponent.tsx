@@ -53,7 +53,6 @@ export default function MenuItemComponent(props: any) {
         <p className="item-description">{props.description}</p>
         <p className="item-description"> Price: ${props.price}</p>
     </div> */}
-      `
     </>
   );
 }

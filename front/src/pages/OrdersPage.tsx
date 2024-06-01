@@ -1,17 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../css/orders.css'
 import NavbarComponent from '../components/NavbarComponent'
 import { io, Socket } from "socket.io-client";
 
 const socket = io("http://localhost:8000")
 
+
 export default function OrdersPage() {
+
+    const [orders, setOrders] = useState({})
+
+    socket.on('place-order', (order)=>{
+        console.log(order)
+        setOrders(order)
+    })
   return (
     <>
     <NavbarComponent />
 
     <div className="container-orders-page">
+        
         <h2>Orders</h2>
+        {JSON.stringify(orders)}
         <div className="orders">
             <div className="order-card">
                 <div className="order-details">

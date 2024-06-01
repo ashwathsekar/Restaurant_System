@@ -5,6 +5,13 @@ import axios from 'axios';
 import MenuItemComponent from '../components/MenuItemComponent';
 import { ReactReduxContext, useSelector } from 'react-redux';
 import Confetti from 'react-confetti'
+import { io, Socket } from "socket.io-client";
+
+
+const socket = io("http://localhost:8000")
+
+
+
 
 interface Order{
   items: string[],
@@ -37,12 +44,14 @@ export default function MenuPage() {
       }
 
       const handleCheckout = () =>{
-        if (total<=0) {
+        if (total<=0 && order.items) {
           alert("Cart Empty! Please add items.")
           return
         }
         setOrder({items:cartItems, total: total, status:"Pending"});
+        console.log("Client side: ")
         console.log(order)
+        socket.emit('new-order', order);
         alert("Checkout successful")
       }
       const updateTotal = () =>{

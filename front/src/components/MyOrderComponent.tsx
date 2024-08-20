@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "../css/myorder.css";
-import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { io } from "socket.io-client";
+
+
+const socket = io("http://localhost:8000")
 
 export default function MyOrderComponent(props: any) {
+    const [orderStatus, setOrderStatus] =useState('Processing')
+
+    const handleSendUpdate = ()=> {
+        // socket.emit('update-status', orderStatus)
+        console.log(orderStatus)
+    }
+
+    const handleUpdateSelector = (e:any)=> {
+        setOrderStatus(e.target.value);
+    }
+
+
+
+
   return (
     <div className="order-card">
       <div className="order-details">
@@ -21,13 +37,13 @@ export default function MyOrderComponent(props: any) {
         </p>
       </div>
       <div className="update-status">
-        <select>
-          <option value="processing">Processing</option>
-          <option value="preparing">Preparing</option>
-          <option value="ready">Ready</option>
-          <option value="delivered">Delivered</option>
+        <select onChange={handleUpdateSelector}>
+          <option value="Processing">Processing</option>
+          <option value="Preparing">Preparing</option>
+          <option value="Ready">Ready</option>
+          <option value="Delivered">Delivered</option>
         </select>
-        <button className="m-2">Update Status</button>
+        <button className="m-2" onClick={handleSendUpdate}>Update Status</button>
       </div>
     </div>
   );

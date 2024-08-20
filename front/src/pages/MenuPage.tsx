@@ -13,6 +13,7 @@ interface Order {
   items: string[];
   total: number;
   status: string;
+  id: string;
 }
 
 export default function MenuPage() {
@@ -23,11 +24,10 @@ export default function MenuPage() {
     items: [],
     total: 0,
     status: "",
+    id:""
   });
   const [cart, setCart] = useState([]);
 
-  // console.log("menu", menu);
-  // console.log("Catitems", cartItems);
 
   const orderParser = (cartitems: [any]) => {
     let new_items: any = [
@@ -80,12 +80,7 @@ export default function MenuPage() {
       alert("Cart Empty! Please add items.");
       return;
     }
-    console.log("Cart", cartItems);
-    console.log("Total", total);
-    orderParser(cartItems);
 
-    console.log("Client side: ");
-    console.log(order);
     socket.emit("new-order", order);
     alert("Checkout successful");
   };
@@ -96,7 +91,7 @@ export default function MenuPage() {
     });
     setTotal(total);
     let items = cartItems.length !== 0 ? orderParser(cartItems) : [];
-    setOrder({ ...order, items: items, total: total, status: "Pending" });
+    setOrder({ ...order, items: items, total: total, status: "Pending"});
   };
   useEffect(() => {
     updateTotal();

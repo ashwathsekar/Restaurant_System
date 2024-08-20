@@ -4,7 +4,7 @@ import '../css/profile.css'
 function Order(props:any) {
   return (
     <>
-    <div className="order-card">
+    <div className="order-card my-2">
         <div className="order-details">
             <p>
             <strong>Items: </strong>

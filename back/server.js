@@ -5,6 +5,11 @@ import { config } from "dotenv";
 import { connectDB } from "./utils/db.js";
 import { Order } from "./models/order.js";
 
+config({
+  path: "./config.env",
+});
+
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -13,9 +18,6 @@ const io = new Server(server, {
   },
 });
  
-config({
-  path: "./config.env",
-});
 
 io.on("connection", (socket) => {
   console.log("USER CONNECTED:", socket.id);

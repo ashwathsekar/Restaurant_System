@@ -39,6 +39,7 @@ function App() {
       <Routes>
         <Route path = '/' >
           <Route index element={<LoginPage />} />
+          <Route path = 'signup' element={<SignupPage />} />
         </Route>
         <Route path="*" element={<MissingPage />} />
       </Routes>
@@ -49,7 +50,7 @@ function App() {
      <Routes>
       <Route path = '/' >
           <Route index element={<LoginPage />} />
-          <Route path = '/signup' element={<SignupPage />} />
+          <Route path = 'signup' element={<SignupPage />} />
         </Route>
         <Route path="/user/">
           <Route path="/user/profile" element={user?<ProfilePage />:<LoginPage/>} />

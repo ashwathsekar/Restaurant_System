@@ -2,17 +2,20 @@ import React, {useState} from 'react'
 import '../css/orders.css'
 import NavbarComponent from '../components/NavbarComponent'
 import { io, Socket } from "socket.io-client";
+import MyOrderComponent from '../components/MyOrderComponent';
 
 const socket = io("http://localhost:8000")
 
 
 export default function OrdersPage() {
 
-    const [orders, setOrders] = useState({})
+    const [orders, setOrders] = useState<any>([])
+    console.log("ODERS", orders)
 
     socket.on('place-order', (order)=>{
+        console.log("Hello World!")
         console.log(order)
-        setOrders(order)
+        setOrders([...orders, order])
     })
   return (
     <>
@@ -20,26 +23,14 @@ export default function OrdersPage() {
 
     <div className="container-orders-page">
         
-        <h2>Orders</h2>
-        {JSON.stringify(orders)}
+        <h2 className='m-5'>Orders</h2>
+        {/* {JSON.stringify(orders)} */}
         <div className="orders">
-            <div className="order-card">
-                <div className="order-details">
-                    <p><strong>Items:</strong> Burger x2, Pizza x1</p>
-                    <p><strong>Prices:</strong> $10.00, $12.00</p>
-                    <p><strong>Total Price:</strong> $22.00</p>
-                    <p><strong>Status:</strong> In Progress</p>
-                </div>
-                <div className="update-status">
-                    <select>
-                        <option value="processing">Processing</option>
-                        <option value="preparing">Preparing</option>
-                        <option value="ready">Ready</option>
-                        <option value="delivered">Delivered</option>
-                    </select>
-                    <button>Update Status</button>
-                </div>
-            </div>
+            {orders && orders.map((order:any, index:any)=>{
+                return(
+                    <MyOrderComponent key={index} data={order} />        
+                )
+            })}
             {/* <!-- Add more order cards here --> */}
         </div>
     </div>

@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import '../css/myorder.css'
-import axios from 'axios'
-import { useAuth } from '../contexts/AuthContext';
+import React, { useEffect, useState } from "react";
+import "../css/myorder.css";
+import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function MyOrderComponent() {
-    
+export default function MyOrderComponent(props: any) {
   return (
-    
-   
-            <div className="order-details">
-                <div className="item">
-                    <span className="name">Burger</span>
-                    <span className="quantity">x2</span>
-                    <span className="price">$10.00</span>
-                </div>
-                <div className="item">
-                    <span className="name">Pizza</span>
-                    <span className="quantity">x1</span>
-                    <span className="price">$12.00</span>
-                </div>
-                <div className="total">
-                    <span>Total:</span>
-                    <span className="total-price">$22.00</span>
-                </div>
-                <div className="status">
-                    <span>Status:</span>
-                    <span className="order-status">In Progress</span>
-                </div>
-            </div>
-
-  )
+    <div className="order-card">
+      <div className="order-details">
+        <p>
+          <strong>Items:</strong>  {props.data.items && props.data.items.map((item:any, index:any)=>{return (<>{item.name} x{item.quantity} </>)})}
+        </p>
+        <p>
+          <strong>Prices:</strong> {props.data.items && props.data.items.map((item:any, index:any)=>{return (<>${item.price} </>)})}
+        </p>
+        <p>
+          <strong>Total Price:</strong> ${props.data.total && props.data.total.toFixed(2)}
+        </p>
+        <p>
+          <strong>Status:</strong> {props.data.status && props.data.status}
+        </p>
+      </div>
+      <div className="update-status">
+        <select>
+          <option value="processing">Processing</option>
+          <option value="preparing">Preparing</option>
+          <option value="ready">Ready</option>
+          <option value="delivered">Delivered</option>
+        </select>
+        <button className="m-2">Update Status</button>
+      </div>
+    </div>
+  );
 }

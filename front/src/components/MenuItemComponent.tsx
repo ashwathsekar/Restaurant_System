@@ -8,8 +8,8 @@ export default function MenuItemComponent(props: any) {
   const dispatch = useDispatch()
   
   const cart = useSelector((state:any) => state.cart);
-    console.log(cart)
-    console.log(props)
+    // console.log(cart)
+    // console.log(props)
     const [value, setValue] = useState(0)
 
     const increment = () => {

@@ -5,22 +5,22 @@ import { useAuth } from '../contexts/AuthContext';
 
 
 export default function NavbarComponent() {
-  console.log("rendering navbar")
+  // console.log("rendering navbar")
   const {user} = useAuth();
   return (
     <>
     <div>
       <ul className="container">
             <span className="sub-container">
-                <Link to="/user/home"><li>Home</li></Link>
-                <Link to="/user/menu"><li>Menu</li></Link>
-                {user.role === "employee" && <Link to="/user/orders"><li>Orders</li></Link>}
+            <Link to="/user/home" className="text-decoration-none"><li>Home</li></Link>
+                <Link to="/user/menu" className="text-decoration-none"><li>Menu</li></Link>
+                {user.role === "employee" && <Link to="/user/orders" className="text-decoration-none"><li>Orders</li></Link>}
             </span>
             <span className="sub-container"> 
-                <Link to="/user/profile"><li>Profile</li></Link>
-                <Link to="/"><li className="logout">Logout</li></Link>
-                <Link to="/"><li>Login</li></Link>
-                {user.role === "customer" && <Link to="/signup"><li>Sign Up</li></Link>}
+                <Link to="/user/profile" className="text-decoration-none"><li>Profile</li></Link>
+                <Link to="/" className="text-decoration-none"><li className="logout" >Logout</li></Link>
+                <Link to="/" className="text-decoration-none"><li>Login</li></Link>
+                {user.role === "customer" && <Link to="/signup" className="text-decoration-none"><li>Sign Up</li></Link>}
             </span>
         </ul>
     </div>

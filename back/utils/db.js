@@ -5,6 +5,7 @@ export const connectDB = async () => {
         console.log("Connecting to DB...");
         const data = await mongoose.connect(process.env.DB_URI);
         console.log("Connected sucessfully!")
+        setTimeout(()=>{}, 1000)
 
     } catch (error) {
         // console.log(error)

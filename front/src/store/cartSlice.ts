@@ -16,10 +16,14 @@ const cartSlice = createSlice({
                 state.splice(index, 1);
             }
             return state;
+        },
+        empty(state) {
+            state = []
+            return state
         }
 
     }
 });
 
-export const {add, remove} = cartSlice.actions          // all action fucntion. here to export
+export const {add, remove, empty} = cartSlice.actions          // all action fucntion. here to export
 export default cartSlice.reducer;

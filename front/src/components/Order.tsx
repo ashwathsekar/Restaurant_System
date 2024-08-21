@@ -2,6 +2,7 @@ import '../css/profile.css'
 
 
 function Order(props:any) {
+  console.log(props)
   return (
     <>
     <div className="order-card my-2">

@@ -19,8 +19,8 @@ export default function NavbarComponent() {
             <span className="sub-container"> 
                 <Link to="/user/profile" className="text-decoration-none"><li>Profile</li></Link>
                 <Link to="/" className="text-decoration-none"><li className="logout" >Logout</li></Link>
-                <Link to="/" className="text-decoration-none"><li>Login</li></Link>
-                {user.role === "customer" && <Link to="/signup" className="text-decoration-none"><li>Sign Up</li></Link>}
+                {/* <Link to="/" className="text-decoration-none"><li>Login</li></Link>
+                {user.role === "customer" && <Link to="/signup" className="text-decoration-none"><li>Sign Up</li></Link>} */}
             </span>
         </ul>
     </div>

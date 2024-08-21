@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../css/myorder.css";
 import { io } from "socket.io-client";
+import { socket, socketID } from "../sockets";
 
 
-const socket = io("http://localhost:8000")
 
 export default function MyOrderComponent(props: any) {
     const [orderStatus, setOrderStatus] =useState('Processing')
 
     const handleSendUpdate = ()=> {
-        // socket.emit('update-status', orderStatus)
+        socket.emit('update-status', {orderStatus, id: props.data.user_id})
         console.log(orderStatus)
     }
 

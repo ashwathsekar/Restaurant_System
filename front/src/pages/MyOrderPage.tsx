@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
 import '../css/myorder.css'
 import NavbarComponent from '../components/NavbarComponent'
-import { io, Socket } from "socket.io-client";
-
-
-const socket = io("http://localhost:8000")
-
+import { socket, socketID } from '../sockets';
 
 export default function MyOrderPage() {
 

@@ -5,9 +5,12 @@ import axios from "axios";
 import MenuItemComponent from "../components/MenuItemComponent";
 import { ReactReduxContext, useSelector } from "react-redux";
 import Confetti from "react-confetti";
-import { io, Socket } from "socket.io-client";
+import { useDispatch } from "react-redux";
+import { empty } from "../store/cartSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { socket, socketID } from "../sockets";
 
-const socket = io("http://localhost:8000");
 
 interface Order {
   items: string[];
@@ -17,9 +20,11 @@ interface Order {
 }
 
 export default function MenuPage() {
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const cartItems = useSelector((state: any) => state.cart);
   const [menu, setMenu] = useState([]);
+  const [success, setSuccess] = useState(false)
   const [order, setOrder] = useState<Order>({
     items: [],
     total: 0,
@@ -27,6 +32,8 @@ export default function MenuPage() {
     id:""
   });
   const [cart, setCart] = useState([]);
+  const notify = (text:string) => toast.success(text);
+
 
 
   const orderParser = (cartitems: [any]) => {
@@ -77,12 +84,16 @@ export default function MenuPage() {
 
   const handleCheckout = () => {
     if (total <= 0 && order.items) {
-      alert("Cart Empty! Please add items.");
+      // alert("Cart Empty! Please add items.");
+      toast.error("Cart Empty! Please add items.")
       return;
     }
 
     socket.emit("new-order", order);
-    alert("Checkout successful");
+    setSuccess(true)
+    notify("Checkout Successful!")
+    localStorage.setItem("myorder", JSON.stringify(order))
+    dispatch(empty());
   };
   const updateTotal = () => {
     let total = 0;
@@ -100,7 +111,6 @@ export default function MenuPage() {
   useEffect(() => {
     fetchMenu();
   }, []);
-  // console.log(menu)
 
   return (
     <>
@@ -120,6 +130,7 @@ export default function MenuPage() {
       </div>
       <div className="cart">
         <h3>Shopping Cart</h3>
+        {success && <h4 className="text-success text-center">Checkout successful</h4>}
         <ul className="cart-items">
           {cartItems
             .reduce((uniqueItems: any[], item: any) => {
@@ -146,6 +157,8 @@ export default function MenuPage() {
           Checkout
         </button>
       </div>
+      <ToastContainer />
+
     </>
   );
 }

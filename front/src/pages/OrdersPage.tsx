@@ -3,9 +3,7 @@ import '../css/orders.css'
 import NavbarComponent from '../components/NavbarComponent'
 import { io } from "socket.io-client";
 import MyOrderComponent from '../components/MyOrderComponent';
-
-const socket = io("http://localhost:8000")
-
+import { socket, socketID } from '../sockets';
 
 export default function OrdersPage() {
 
@@ -13,6 +11,8 @@ export default function OrdersPage() {
     socket.on('place-order', (order)=>{
         setOrders([...orders, order])
     })
+
+    if (orders) {console.log(orders)}
   return (
     <>
     <NavbarComponent />

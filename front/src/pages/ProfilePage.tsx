@@ -32,13 +32,7 @@ export default function ProfilePage() {
   };
 
 
-  socket.on('order-update', (order_update)=>{
-    console.log(socket.id)
-    console.log("an update came : ", order_update)
-    
-    // setOrder({...order, status: order_update })
-    
-  })
+ 
 
   socket.on('place-order', (order_info)=>{
     console.log(socket.id)
